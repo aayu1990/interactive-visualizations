@@ -43,7 +43,7 @@ def names():
 
     # Use Pandas to perform the sql query
     stmt = db.session.query(Samples).statement
-    df = pd.read_sql_query(stmt,db.session.bind)
+    df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (sample names)
     return jsonify(list(df.columns)[2:])
@@ -53,29 +53,30 @@ def names():
 def sample_metadata(sample):
     """Return the MetaData for a given sample."""
     sel = [
-        sample_metadata.sample,
-        sample_metadata.ETHNICITY,
-        sample_metadata.GENDER,
-        sample_metadata.AGE,
-        sample_metadata.LOCATION,
-        sample_metadata.BBTYPE,
-        sample_metadata.WFREQ,
+        Samples_Metadata.sample,
+        Samples_Metadata.ETHNICITY,
+        Samples_Metadata.GENDER,
+        Samples_Metadata.AGE,
+        Samples_Metadata.LOCATION,
+        Samples_Metadata.BBTYPE,
+        Samples_Metadata.WFREQ,
     ]
 
     results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
 
     # Create a dictionary entry for each row of metadata information
-    Sample_metadata = {}
+    sample_metadata = {}
     for result in results:
-        Sample_metadata["sample"] = result[0]
-        Sample_metadata["ETHNICITY"] = result[1]
-        Sample_metadata["GENDER"] = result[2]
-        Sample_metadata["AGE"] = result[3]
-        Sample_metadata["LOCATION"] = result[4]
-        Sample_metadata["BBTYPE"] = result[5]
-        Sample_metadata["WFREQ"] = result[6]
-        print(Sample_metadata)
-    return jsonify(Sample_metadata)
+        sample_metadata["sample"] = result[0]
+        sample_metadata["ETHNICITY"] = result[1]
+        sample_metadata["GENDER"] = result[2]
+        sample_metadata["AGE"] = result[3]
+        sample_metadata["LOCATION"] = result[4]
+        sample_metadata["BBTYPE"] = result[5]
+        sample_metadata["WFREQ"] = result[6]
+
+    print(sample_metadata)
+    return jsonify(sample_metadata)
 
 
 @app.route("/samples/<sample>")
