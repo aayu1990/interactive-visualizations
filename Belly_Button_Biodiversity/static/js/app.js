@@ -25,7 +25,7 @@ function buildCharts(sample) {
   d3.json(url).then((sampleNames) => {
     console.log(sampleNames);
     // sampleNames.sort(compare);
-    var data = [{
+    var datapie = [{
       labels: sampleNames.otu_ids.slice(0, 10),
       values: sampleNames.sample_values.slice(0, 10),
       hovertext: sampleNames.otu_labels.slice(0, 10),
@@ -35,7 +35,19 @@ function buildCharts(sample) {
       height: 400,
        width: 900    
 };
-Plotly.newPlot('pie', data, layout);
+var datascatter=[{x:sampleNames.otu_ids,
+                  y:sampleNames.sample_values,
+                  text:sampleNames.otu_labels,
+                  mode:'markers',
+                  marker:{color:sampleNames.otu_ids,
+                          size:sampleNames.sample_values}
+  }];
+
+
+console.log(datascatter);
+Plotly.newPlot('pie', datapie, layout);
+
+Plotly.newPlot('bubble',datascatter);
   });  
 }
   
