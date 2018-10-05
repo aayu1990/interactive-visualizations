@@ -31,9 +31,12 @@ function buildCharts(sample) {
       hovertext: sampleNames.otu_labels.slice(0, 10),
       type: 'pie'
     }];
-    var layout = {
+    var layout = { title: "Bacteria Sample_Value",
+      xaxis:{title: "Out_ids"},
+      yaxis:{title:"Sample Values"},
+      showlegend: false,
       height: 400,
-       width: 900    
+       width: 900
 };
 var datascatter=[{x:sampleNames.otu_ids,
                   y:sampleNames.sample_values,
@@ -42,12 +45,19 @@ var datascatter=[{x:sampleNames.otu_ids,
                   marker:{color:sampleNames.otu_ids,
                           size:sampleNames.sample_values}
   }];
-
+  var layout3 = {
+    title: "Otu_ids Vs Sample_Values",
+    xaxis:{title:"Otu_ids"},
+    yaxis:{title:"Sample Values"},
+    showlegend: false,
+    height: 600,
+    width:1200
+   };
 
 console.log(datascatter);
 Plotly.newPlot('pie', datapie, layout);
 
-Plotly.newPlot('bubble',datascatter);
+Plotly.newPlot('bubble',datascatter,layout3);
   });  
 }
   
